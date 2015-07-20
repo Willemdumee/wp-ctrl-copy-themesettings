@@ -38,21 +38,21 @@ foreach ($themes as $theme) {
             if (is_object( $value )) {
                 echo '<li>' . $key . '<ul>';
                 foreach ($value as $key => $value) {
-                    echo '<li>' . $key . ': ' . $value . '</li>';
+                    echo '<li><span class="label">' . $key . ':</span> ' . $value . '</li>';
                 }
                 echo '</ul></li>';
                 $count++;
             } elseif (( $key == 'sidebars_widgets' ) || ( $key == '0' )) {
                 continue;
             } elseif (is_array( $value )) {
-                echo '<li>' . $key . '<ul>';
+                echo '<li><span class="label">' . $key . ':</span><ul>';
                 foreach ($value as $key => $value) {
                     echo '<li>' . $key . ': ' . $value . '</li>';
                 }
                 echo '</ul></li>';
                 $count++;
             } else {
-                echo '<li>' . $key . ': ' . $value . '</li>';
+                echo '<li><span class="label">' . $key . ':</span> ' . $value . '</li>';
                 $count++;
             }
         }
