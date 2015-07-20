@@ -18,8 +18,6 @@ foreach ($themes as $theme) {
     }
 };
 
-//var_dump($themes_array);
-
 
 ?><!-- Top-level menu -->
 <div id="ctrl-general" class="wrap">
@@ -98,21 +96,5 @@ foreach ($themes as $theme) {
 
 
 <?php
-
-//$option_name = 'myhack_extraction_length' ;
-//$new_value = '255' ;
-//
-//if ( get_option( $option_name ) !== false ) {
-//
-//     The option already exists, so we just update it.
-//    update_option( $option_name, $new_value );
-//
-//} else {
-//
-//     The option hasn't been added yet. We'll add it with $autoload set to 'no'.
-//    $deprecated = null;
-//    $autoload = 'no';
-//    add_option( $option_name, $new_value, $deprecated, $autoload );
-//}
 
 ?>

@@ -8,10 +8,10 @@ jQuery(document).ready(function () {
         jQuery('#theme-mods-optionname').attr('value', themeOptions);
 
         var data = {
-            'action': 'my_action',
-            'theme': themeOptions     // We pass php values differently!
+            'action': 'childtheme_options',
+            'theme': themeOptions
         };
-        // We can also pass the url value separately from ajaxurl for front end AJAX implementations
+
         jQuery.post(ajaxurl, data, function (response) {
             jQuery(response).appendTo('.childtheme-options');
         });

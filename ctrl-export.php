@@ -36,7 +36,7 @@ Class Ctrl_Export
         add_action( 'admin_notices', array( $this, 'admin_notice' ) );
         add_action( 'admin_menu', array( $this, 'settings_menu' ) );
         add_action( 'admin_init', array( $this, 'admin_init' ) );
-        add_action( 'wp_ajax_my_action', array( $this, 'my_action_callback' ) );
+        add_action( 'wp_ajax_childtheme_options', array( $this, 'childtheme_callback' ) );
 
     }
 
@@ -46,7 +46,6 @@ Class Ctrl_Export
             '' );
     }
 
-    // Register functions to be called when bugs are saved
     public function admin_init()
     {
         add_action( 'admin_post_save_ctrl_export',
@@ -83,12 +82,10 @@ Class Ctrl_Export
 
     public function save_export()
     {
-        // Check if user has proper security level
         if ( ! current_user_can( 'manage_options' )) {
             wp_die( 'Not allowed' );
         }
 
-        // Check if nonce field is present for security
         check_admin_referer( 'ctrl_export_save' );
         $ctrl_theme_options_parent = (array) get_option( $_POST['parent-theme'] );
 
@@ -102,8 +99,6 @@ Class Ctrl_Export
             update_option( $_POST['theme-mods-optionname'], $ctrl_theme_options_parent );
         }
 
-
-        // Redirect the page to the admin form
         wp_redirect( add_query_arg( array(
             'page'             => 'ctrl-export/views/ctrl-export-page.php',
             'message'          => 'exportsaved',
@@ -113,9 +108,9 @@ Class Ctrl_Export
         exit;
     }
 
-    public function my_action_callback()
+    public function childtheme_callback()
     {
-        $count = 0;
+        $count   = 0;
         $options = get_option( $_POST['theme'] );
         echo '<ul>';
         foreach ($options as $key => $value) {
@@ -125,7 +120,7 @@ Class Ctrl_Export
                     echo '<li>' . $key . ': ' . $value . '</li>';
                 }
                 echo '</ul></li>';
-                $count++;
+                $count ++;
             } elseif (( $key == 'sidebars_widgets' ) || ( $key == '0' )) {
                 continue;
             } elseif (is_array( $value )) {
@@ -134,19 +129,18 @@ Class Ctrl_Export
                     echo '<li>' . $key . ': ' . $value . '</li>';
                 }
                 echo '</ul></li>';
-                $count++;
+                $count ++;
             } else {
                 echo '<li>' . $key . ': ' . $value . '</li>';
-                $count++;
+                $count ++;
             }
         }
-        if ($count == 0 ) {
+        if ($count == 0) {
             echo "<li>This theme doesn't have custom options set</li>";
         }
         echo '</ul>';
 
-
-        wp_die(); // this is required to terminate immediately and return a proper response
+        wp_die();
     }
 }
 
